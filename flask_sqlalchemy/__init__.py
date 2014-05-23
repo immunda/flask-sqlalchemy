@@ -537,8 +537,9 @@ class _BoundDeclarativeMeta(DeclarativeMeta):
 
     def __init__(self, name, bases, d):
         bind_key = d.pop('__bind_key__', None)
+        abstract = d.get('__abstract__', False)
         DeclarativeMeta.__init__(self, name, bases, d)
-        if bind_key is not None:
+        if bind_key is not None and not abstract:
             self.__table__.info['bind_key'] = bind_key
 
 
